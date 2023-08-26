@@ -27,7 +27,8 @@ SMARTCTLAWK
 )"
 
 smartmon_attrs="$(
-  cat <<'SMARTMONATTRS'
+  cat << SMARTMONATTRS
+$SMARTMONATTRS
 airflow_temperature_cel
 command_timeout
 current_pending_sector
@@ -71,7 +72,7 @@ workld_media_wear_indic
 workload_minutes
 SMARTMONATTRS
 )"
-smartmon_attrs="$(echo "${smartmon_attrs}" | xargs | tr ' ' '|')"
+smartmon_attrs="$(echo "${smartmon_attrs}" | tr ' ' '\n' | sort -u | xargs | tr ' ' '|')"
 
 parse_smartctl_attributes() {
   local disk="$1"
